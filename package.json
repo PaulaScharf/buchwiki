@@ -1,0 +1,29 @@
+{
+  "name": "buchwiki",
+  "version": "0.9.0",
+  "description": "Wiki Seite für das Buch von Aaron und Joshua",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=development --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulaScharf/buchwiki.git"
+  },
+  "author": "Paula Scharf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulaScharf/buchwiki/issues"
+  },
+  "homepage": "https://github.com/PaulaScharf/buchwiki#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.1.3",
+    "webpack-cli": "^4.1.0"
+  }
+}
