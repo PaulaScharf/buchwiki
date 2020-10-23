@@ -1,17 +1,26 @@
 var path = require('path')
 var webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = (env, argv) => {
 	let isProduction = (argv.mode === 'production');
 	let config = {
-		entry: './src/index.js',
+		// entry files to compile (relative to the base dir)
+		entry: [
+			"./src/index.js",
+			"./src/scss/app.scss",
+		],
+		// path to store compiled JS bundle
 		output: {
 			// bundle relative name
-			filename: "index.js",
-			path: path.resolve(__dirname, './dist'),
-			publicPath: '/dist/',
-			filename: 'build.js'
+			filename: "js/app.js",
+			// base build directory
+			path: path.resolve(__dirname, "dist"),
+			// path to build relative asset links
+			publicPath: "../"
 		},
+
 		module: {
 			rules: [
 				{
@@ -21,11 +30,27 @@ module.exports = (env, argv) => {
 						name: '[name].[ext]?[hash]'
 					}
 				},
+				// styles loader
 				{
-					test: /\.css$/,
+					test: /\.(sa|sc|c)ss$/,
 					use: [
-						'vue-style-loader',
-						'css-loader'
+						MiniCssExtractPlugin.loader,
+						"css-loader",
+						"sass-loader"
+					],
+				},
+				{
+					test: /\.md$/,
+					use: [
+						{
+							loader: "html-loader"
+						},
+						{
+							loader: "markdown-loader",
+							options: {
+								/* your options here */
+							}
+						}
 					]
 				}
 			]
@@ -39,6 +64,10 @@ module.exports = (env, argv) => {
 				jquery: 'jquery',
 				'window.jQuery': 'jquery',
 				Popper: ['popper.js', 'default']
+			}),
+			// save compiled SCSS into separated CSS file
+			new MiniCssExtractPlugin({
+				filename: "css/style.css"
 			})
 		]
 	};
